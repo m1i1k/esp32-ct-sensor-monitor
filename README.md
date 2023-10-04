@@ -34,7 +34,12 @@ Required libraries:
 - ESPAsyncWebSrv 1.2.6
 - ESP_Mail_Client 3.4.6
 - LinkedList 1.3.3
+    * I modified the name of the class because there was another library with a class that has the same name.
+      * LinkedList.h
 - WiFiManager 2.0.16-rc.2
+    * I added a line to the code to reboot the ESP32 if it is unable to connect after hitting the re-try limit.
+      * WiFiManager.cpp
+      * WiFiManager.h
 
 Finished product attached to wall in utility room:
 
