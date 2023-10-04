@@ -1,13 +1,15 @@
 /*
-2DO
--connect to WIFI only when email is being sent
-  - this means we can't have a running web server
-  - we can add a push button to force an info email
-
+################################################################################################################
+#  Description: CT clamp sump pump monitor using ESP32
+#
+#  Version:     Date        User                Change                          
+#               ==========================================================================
+#               20231004    Michael Dann        Initial version.
+#               --------------------------------------------------------------------------
+################################################################################################################
 */
-
+ 
 #include <Arduino.h>
-//#include <WiFi.h>
 #include <EEPROM.h>
 #include <WiFiManager.h>      // Captive Portal Wifi Manager - https://github.com/tzapu/WiFiManager
 #include <HTTPClient.h>       // Simple Web Server
@@ -104,7 +106,7 @@ void saveParamsCallback() {
 
 // Start web server on port 80
 AsyncWebServer server(80);
-const char *PARAM_MESSAGE = "message";  //2do - remove this if not needed; store message from GET request
+const char *PARAM_MESSAGE = "message";  // store message from GET request; not used at this time.
 
 void GenerateHtml(String &pStatus, String &pStatusTime, String &pInitialTime, String &pTable, long cntOnStatusDuration, long totOnStatusDuration, int maxOnStatusDuration, int minOnStatusDuration, int avgOnStatusDuration, long cntOffStatusDuration, long totOffStatusDuration, int maxOffStatusDuration, int minOffStatusDuration, int avgOffStatusDuration);  // function to generate HTML
 
@@ -271,11 +273,6 @@ void setup() {
 
   // Now the task scheduler, which takes over control of scheduling individual tasks, is automatically started.
 
-  //2DO - verify that the sensor is being read when the WiFi manager is in AP mode
-
-  //Note: reset settings - wipe credentials for testing
-  //wm.resetSettings();
-
   // read config values from EEPROM
   EEPROM.begin(256);
   EEPROM.get(0, wifiParams);
@@ -349,38 +346,6 @@ void loop() {
   prevWLStatusString = WLStatusString;
   WLStatusString = wm.getWLStatusString();
 
-  // if WiFi connetion is first connected, or lost and re-connected do this
-  /* DEBUG
-  if(Serial.available()>0){
-    char input_chr=Serial.read();
-    Serial.print("prevWLStatusString:");     Serial.println(prevWLStatusString);
-    Serial.print("WLStatusString:");     Serial.println(WLStatusString);
-    Serial.print("portalRunning:");    Serial.println(portalRunning);
-    Serial.println("forceServerConnect"); Serial.println(forceServerConnect);
-    Serial.println("forceServerDisconnect"); Serial.println(forceServerDisconnect);
-    Serial.println("forcePortalRun"); Serial.println(forcePortalRun);
-    Serial.println("forcePortalStop"); Serial.println(forcePortalStop);
-
-    if(input_chr=='c'){
-      forceServerConnect=true;
-    }
-    if(input_chr=='d'){
-      forceServerDisconnect=true;
-    }
-    if(input_chr=='p'){
-      forcePortalRun=true;
-    }
-    if(input_chr=='s'){
-      forcePortalStop=true;
-    }
-    if(input_chr=='r'){
-      wm.resetSettings();
-      ESP.restart();
-    }
-    
-  }
-  DEBUG */
-
   // If the reset button has been pressed for 2 seconds then clear the WiFi settings and reboot ESP. This will force the captive portal to start.
   if (analogRead(RESET_BUTTON_PIN) > 1000) {
     Serial.println("Info: RESET BUTTON PRESSED");
@@ -411,6 +376,7 @@ void loop() {
     ESP.restart();
   }
 
+  // if WiFi connetion is first connected, or lost and re-connected do this  
   if (forceServerConnect || (WLStatusString == "WL_CONNECTED" && prevWLStatusString != "WL_CONNECTED")) {
     forceServerConnect = false;
 
@@ -439,8 +405,6 @@ void loop() {
     */
     configTime(gmtOffset_sec, daylightOffset_sec, ntpServer1, ntpServer2);
     printLocalTime();
-    //wm.disconnect() 2DO - disconnect WiFi when not trying to send signal
-    //wm.erase();
 
     // Set default page for Web Server
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
@@ -1023,7 +987,7 @@ void sendEmail(int pSendEmailType) {
   // message.response.notify = esp_mail_smtp_notify_success | esp_mail_smtp_notify_failure | esp_mail_smtp_notify_delay;
 
   /* Set the custom message header */
-  message.addHeader(F("Message-ID: <data.integration.specialist@gmail.com>"));
+  message.addHeader(F("Message-ID: <your_account_name@gmail.com>"));
 
   /* Set the TCP response read timeout in seconds */
   // smtp.setTCPTimeout(10);
@@ -1042,7 +1006,6 @@ void sendEmail(int pSendEmailType) {
   /* Start sending Email and close the session */
   if (!MailClient.sendMail(&smtp, &message))
     MailClient.printf("Error, Status Code: %d, Error Code: %d, Reason: %s", smtp.statusCode(), smtp.errorCode(), smtp.errorReason().c_str());
-  //2do add light that shows last email failed sending
 
   // to clear sending result log
   smtp.sendingResult.clear();
