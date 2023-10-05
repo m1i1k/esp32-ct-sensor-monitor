@@ -1,6 +1,6 @@
 # esp32-ct-sensor-monitor
 
-CT sensor clamp sump pump monitor using ESP32
+### CT sensor clamp sump pump monitor using ESP32
 
 by: Michael Dann
 
