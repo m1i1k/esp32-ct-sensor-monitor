@@ -95,7 +95,17 @@ This diagram shows how the sensor pin is wired with the CT clamp.
 
 # Overview of the source code
 
+The program initiates by verifying the presence of a WiFi connection through the WiFi Manager. If absent, it launches an access point alongside a captive portal. Users can then connect and input both their WiFi and Gmail credentials.
 
+Upon specifying the WiFi details, the connection commences. Should the connection drop, the WiFi Manager attempts reconnection. A yellow LED signifies a successful WiFi connection. If issues arise with the connection, users can press the device's reset button, resetting the WiFi settings and reinitiating the captive portal.
+
+Simultaneously, the program initiates two continuous tasks: taskReadSensor() and taskProcessSensor(). The former monitors the sensor, logging status changes to a queue. The latter processes these values, updating the web and email content accordingly.
+
+The primary loop() function oversees flag variables, manages email notifications, operates the web server, and monitors WiFi connectivity.
+
+Note: This application mandates a Gmail account and an application password, utilizing the Gmail API for email notifications.
+
+Here is a high-level description of the logic in the code:
 
 ```
 /* Setup:
