@@ -1,6 +1,7 @@
 # esp32-ct-sensor-monitor
 
 CT sensor clamp sump pump monitor using ESP32
+by: Michael Dann
 
 The objective of this project is to monitor a sump pump. Living in an area with a high water table, it's crucial for me to ensure my sump pump functions correctly. While the primary focus is on the sump pump, this system can also be adapted to monitor other appliances, such as a deep freezer.
 
