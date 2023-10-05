@@ -95,7 +95,62 @@ This diagram shows how the sensor pin is wired with the CT clamp.
 
 # Overview of the source code
 
-2DO
+
+
+```
+/* Setup:
+- Configure ESP pins for I/O
+- Initialize message queue for inter-process communication
+- Initialize email client library (Gmail)
+- Launch task: read sensor values
+- Launch task: process sensor values
+- Initialize WiFi
+- Initialize WiFi Manager
+- Retrieve Gmail credentials from EEPROM (set via WiFi Manager portal)
+*/
+void setup()
+
+
+
+/* Main Loop:
+- If WiFi connected, set up web server and mDNS for URL-based access
+- Monitor event flags for email alerts and alarms
+- Check for reset button press
+*/
+void loop()
+
+
+
+/* Task: Process Sensor Values:
+- Continuously check message queue for updates
+- On message receipt, update statistics and web/email content
+*/
+void taskProcessSensor()
+
+
+
+/* Task: Read Sensor Values:
+- Continuously monitor sensor voltage
+- Send message on state change (HIGH to LOW, LOW to HIGH) or after a time interval
+- Flag for email alert and alarm if sensor state persists beyond threshold
+*/
+void taskReadSensor()
+
+
+
+/* Function: Send Email using Gmail */
+void sendEmail()
+
+
+
+/* Callback: Report Email Send Status */
+void smtpCallback()
+
+
+
+/* Function: Generate HTML Content */
+void GenerateHtml()
+```
 
 # Wishlist
 
