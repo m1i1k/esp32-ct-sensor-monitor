@@ -68,9 +68,30 @@ This is what the user interface looks like:
 
 ![esp32-pin jpg](https://github.com/m1i1k/esp32-ct-sensor-monitor/assets/41442342/563f13cd-90d6-40bf-8863-5e853e8903ae)
 
+A push button is read by pin 35. This button is used to reset the WiFi credentials. Doing so will force the captive portal to start where the user can reconfigure the WiFi credentials as well as the google account that is used for email notification.
+
+#define RESET_BUTTON_PIN 35        //pin to reset WiFi credentials and enter captive portal mode
+pinMode(RESET_BUTTON_PIN, INPUT);
+
+LED indicatar pins are set to pin 0, 4, and 15. 
+
+#define LED_PIN 0                  //pin to display LED (green LED) when current is detected in CT clamp
+#define ALARM_PIN 4                //pin to raise alarm (red LED and buzzer) when the pump has been running abnormally.
+#define WIFI_STATUS_PIN 15         //pin to show when WiFi is connected (yellow LED)
+
+pinMode(LED_PIN, OUTPUT);
+pinMode(ALARM_PIN, OUTPUT);  
+pinMode(WIFI_STATUS_PIN, OUTPUT);
+
+The sensor voltage is read by analog pin 34. 
+
+#define SENSOR_PIN 34              //pin to read sensor value
+pinMode(SENSOR_PIN, INPUT);
+
+This diagram shows how the sensor pin is wired with the CT clamp. 
+
 ![esp32-ctclamp-connection](https://github.com/m1i1k/esp32-ct-sensor-monitor/assets/41442342/b4badb9e-d87b-494a-ac7f-119ddde331e4)
 
-2DO
 
 # Overview of the source code
 
