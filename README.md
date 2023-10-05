@@ -171,4 +171,4 @@ void GenerateHtml()
 
 # Final thoughts
 
-2DO
+If I were to revisit this project, I'd consider deploying a master server in the cloud, perhaps using Firebase or Home Assistant. This device would then focus solely on reading the sensor and relaying messages to the server. Such an approach would enhance reliability during power outages and allow monitoring of multiple devices via a unified web interface. For scaling to numerous devices, I'd adopt a hub-and-spoke model, where each device is a basic chip with an RF transmitter, communicating with a central HUB connected to LAN or WiFi. For now, this device fulfills its purpose, alerting me to any issues with my sump pump. Overall, I'm pleased with the outcome.
