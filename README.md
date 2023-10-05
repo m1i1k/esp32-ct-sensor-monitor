@@ -78,7 +78,7 @@ This is what the user interface looks like:
 
 # Wishlist
 
-- Help Wanted: I have concerns regarding the sensor's wiring. I believe a resistor should connect the sensor's DC output to GND immediately after the capacitor. However, introducing a resistor causes the sensor's DC output voltage to drop to 0V. I tried 10 Ohm and 10k Ohm.
+- Help Wanted: I have concerns regarding the sensor's wiring. I believe a resistor should connect the sensor's DC output to GND immediately after the capacitor. However, introducing a resistor causes the sensor's DC output voltage to drop to 0V. I tried 10 Ohm and 10k Ohm. Email me at m1i1k at yahoo dot com.
 - While an inductor could be placed right after the bridge rectifier's DC output for further signal smoothing, it's not essential for my application. Precise current measurement isn't my objective.
 - Ideally, the Wi-Fi should activate solely for sending notification emails and remain off otherwise. Regrettably, I couldn't achieve this functionality.
 - There is no permanent storage of statistics. It would be nice to add an SD card to save the statistics in case of power outage.
